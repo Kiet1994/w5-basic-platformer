@@ -732,8 +732,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lost: {fileID: 1655226190}
   win: {fileID: 1921894974}
-  enemy1: {fileID: 2126135610548186919}
-  enemy2: {fileID: 1625467193}
+  enemy1: {fileID: 2126135609907378909}
+  enemy2: {fileID: 1855087320}
   iFramesDuration: 2
   numberOfFlashes: 1
 --- !u!1 &1197365426
@@ -794,7 +794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthValue: 2
-  enemy: {fileID: 0}
+  enemy: {fileID: 1855087320}
 --- !u!212 &1197365429
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1061,7 +1061,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthValue: 2
-  enemy: {fileID: 0}
+  enemy: {fileID: 2126135609907378909}
 --- !u!212 &1450597475
 SpriteRenderer:
   m_ObjectHideFlags: 0
