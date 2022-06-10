@@ -63,7 +63,7 @@ public class Health : MonoBehaviour
     }
     private void Update()
     {
-        if (enemy1.GetComponent<HealthEnemy>().currentHealth == 0 & enemy2.GetComponent<HealthEnemy>().currentHealth == 0)
+        if (enemy1.GetComponent<HealthEnemy>().currentHealth == 0)
         {
             GetComponent<PlayerMovement>().enabled = false; //
             GetComponent<PlayerAttack>().enabled = false;

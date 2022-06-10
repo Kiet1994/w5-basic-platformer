@@ -6,55 +6,103 @@ public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private float range;
+
+    [SerializeField] private float rangeAttack;
+    [SerializeField] private BoxCollider2D boxCollider;
+    [SerializeField] private float colliderDistance;
+    [SerializeField] private float attackCooldown;
+    [SerializeField] private int damage;
+    private Animator anim;
+    private float cooldownTimer = Mathf.Infinity;
+    private Health playerHealth;
+
     [SerializeField] private float checkDelay;
-    [SerializeField] private LayerMask playerLayer; // n?i ?? layer cho player
+    [SerializeField] private LayerMask playerLayer;
+    private bool stop;
     private bool move;
-    private Vector3 destination; // l?u v? trí c?a player ?? ?u?i theo
+    private Vector3 destination; 
     private Vector3[] directions = new Vector3[4];
 
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     private void Update()
     {
-        if (move) // n?u true thì
-            transform.Translate(destination * Time.deltaTime * speed);
-        CheckForPlayer();    
-        
+        attackCooldown += Time.deltaTime;
+        if (Attack())
+        {
+            if (cooldownTimer >= attackCooldown)
+            {
+                attackCooldown = 0;
+                anim.SetTrigger("Attack_3");
+            }
+        }
+
+
+        if (move & !stop) // stop = faise
+        {
+            transform.Translate(destination * Time.deltaTime * speed);           
+        }
+        CheckForPlayer();
+        directions[1] = new Vector3(-transform.localScale.x, 0, 0) * range;
+        //Debug.Log(directions[1]);
+        //Debug.Log(transform.localScale.x);
+        Debug.Log(stop);
+        // thêm 1 vùng n?u player ?i ra thì t?t stop.
+       
+    }
+    private bool Attack()
+    {
+        RaycastHit2D hit =
+            Physics2D.BoxCast(boxCollider.bounds.center + transform.right * rangeAttack * transform.localScale.x * colliderDistance,
+            new Vector3(boxCollider.bounds.size.x * rangeAttack, boxCollider.bounds.size.y, boxCollider.bounds.size.z),
+            0, Vector2.left, 0, playerLayer);
+        if (hit.collider != null)
+        {
+            playerHealth = hit.transform.GetComponent<Health>();// hit tr? v? ??i t??ng va ch?m, ??i t??ng va ch?m.v? trí.component Health
+        }
+        else
+        {
+            stop = false;
+        }
+        return hit.collider != null;
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(boxCollider.bounds.center + transform.right * rangeAttack * transform.localScale.x * colliderDistance,
+            new Vector3(boxCollider.bounds.size.x * rangeAttack, boxCollider.bounds.size.y, boxCollider.bounds.size.z));
     }
     private void CheckForPlayer()
-    {
-        CalculateDirections(); //g?i hàm CalculateDirections lên dùng
-                               // ki?m tra n?u trap th?y player ? m?t trong 4 h??ng
-       // for (int i = 0; i < directions.Length; i++)
-      //  {
-            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + 1f), directions[1], Color.red); // v? tia chi?u c?a Raycast d?a trên v? trí, h??ng, ph?m vi
-            RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x,transform.position.y +2f), directions[1], range, playerLayer); // chi?u tia 4 h??ng  
+    {          
+
+            Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + 1f), directions[1], Color.red); // 
+            RaycastHit2D hit = Physics2D.Raycast(new Vector3(transform.position.x,transform.position.y +1f), directions[1], range, playerLayer); // 
          
-            if (hit.collider != null && !move) //chi?u tia 4 h??ng tia va ch?m phayer v? attacking ch?a b?t
+            if (hit.collider != null && !move) // n?u phát hi?n player và ?ang ??ng yên thì b?t di chuy?n ?? ?i t?i h??ng, ng??c l?i thì ?úng yên.
             {
-                move = true; // b?t lên th?c hi?n hàm update di chuy?n trap ? trên
-                destination = directions[1];                
+                move = true; //
+                destination = directions[1];          
+
             }
             else
             {
                 move = false;
             }
-        //}
     }
-
-    private void CalculateDirections()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-       // directions[0] = transform.right * range;
-        directions[1] = -transform.localScale.x * transform.right * range;
+        if (collision.tag == "Player")
+        {
+            stop = true;
+        }
     }
-
-  //  private void Stop()
-   // {
-   //     destination = transform.position;
-   //     move = false;
- //   }
-
-  //  private void OnTriggerEnter2D(Collider2D vacham)
-    //{
-     //   Stop();
-  //  }
+    // thêm 1 bi?n ?? không di chuy?n va ch?m thì T  n?u không va ch?m thì f
+    private void DamagePlayer()
+    {
+        if (Attack())
+            playerHealth.TakeDamage(damage);
+    }
 }

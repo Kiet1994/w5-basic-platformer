@@ -30,7 +30,7 @@ public class PlayerAttack : MonoBehaviour
         }
         EnemyInSight();
         cdTimer += Time.deltaTime;
-        Debug.Log(EnemyInSight());
+        //Debug.Log(EnemyInSight());
     }
     private void Attack()
     {
