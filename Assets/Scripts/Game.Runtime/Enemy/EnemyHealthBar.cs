@@ -10,7 +10,7 @@ public class EnemyHealthBar : MonoBehaviour
 
     private void Update()
     {
-        transform.localScale = new Vector3(enemyHealth.currentHealth * 3 / 5, transform.localScale.y); //scale / maxhp
+        transform.localScale = new Vector3(enemyHealth.currentHealth * 1.3f / 5, transform.localScale.y); //scale / maxhp
 
     }
 }

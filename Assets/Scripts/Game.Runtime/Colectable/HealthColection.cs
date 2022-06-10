@@ -16,6 +16,6 @@ public class HealthColection : MonoBehaviour
     }
     private void Update()
     {
-        transform.position = new Vector3(enemy.transform.position.x, enemy.transform.position.y +1);
+       // transform.position = new Vector3(enemy.transform.position.x, enemy.transform.position.y +1);
     }
 }

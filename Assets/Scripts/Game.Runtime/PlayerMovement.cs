@@ -6,8 +6,11 @@ public class PlayerMovement : MonoBehaviour
 {
     private float timeStop;
     [SerializeField] private float speed; // 
+    [SerializeField] private float powerJump;
+    [SerializeField] GameObject speedBuff;
+    [SerializeField] GameObject speedBuffUI;
 
-   // [SerializeField] private float PowerJump;
+    // [SerializeField] private float PowerJump;
     [SerializeField] private LayerMask groundLayer;
 
     private Rigidbody2D body;
@@ -55,12 +58,14 @@ public class PlayerMovement : MonoBehaviour
         //Debug.Log(speed);
         //Debug.Log(move);
         //move
-        body.velocity = new Vector2(move * 2 * speed, body.velocity.y);
+
+            body.velocity = new Vector2(move * 2 * speed, body.velocity.y);
+
         //dk idle,run,walk
        // anim.SetBool("grounded", isGrounded());
         //jump
-      //  if (Input.GetKeyDown(KeyCode.Space))
-       //     Jump();
+      if (Input.GetKeyDown(KeyCode.Space))
+            Jump();
 
     }
 
@@ -71,12 +76,22 @@ public class PlayerMovement : MonoBehaviour
         return raycastHit.collider != null; // n?u va ch?m thì th?c hi?n isGrounded()
 
     }
-    ///private void Jump() //thi?t l?p Jump
-   // {
-      //  if (isGrounded())
+    private void Jump() //thi?t l?p Jump
+    {
+        if (isGrounded())
       //  {
-     //       body.velocity = new Vector2(body.velocity.x, PowerJump);
-    //        anim.SetTrigger("jump");
+          body.velocity = new Vector2(body.velocity.x, powerJump);
+            anim.SetTrigger("Jump_1");
     //    }
-   // }
+     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "jumpBuff")
+        {
+            powerJump +=3;
+            speedBuff.SetActive(false);
+            speedBuffUI.SetActive(true);
+
+        }
+    }
 }

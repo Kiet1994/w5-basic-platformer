@@ -13,7 +13,8 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private float range; // chi?u dài vùng t?n công
     [SerializeField] private float colliderDistance; // < 1 ?? ?i?u ch?nh kho?ng cách vùng t?n công
     [SerializeField] private LayerMask enemyLayer;
-
+    [SerializeField] GameObject atkBuff;
+    [SerializeField] GameObject atkBuffUI;
     private HealthEnemy enemyHealth;
 
 
@@ -69,5 +70,14 @@ public class PlayerAttack : MonoBehaviour
             enemyHealth.TakeDamage(damage);
 
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "atkBuff")
+        {
+            damage ++;
+            atkBuff.SetActive (false);
+            atkBuffUI.SetActive(true);
 
+        }
+    }
 }

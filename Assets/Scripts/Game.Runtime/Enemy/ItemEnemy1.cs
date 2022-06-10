@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemEnemy : MonoBehaviour
+public class ItemEnemy1 : MonoBehaviour
 {
     public HealthEnemy enemy;
     public Transform enemyLocal;
