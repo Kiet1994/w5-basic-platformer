@@ -15,9 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D body;
     private Animator anim;
-
     private BoxCollider2D boxCollider;
-
     private float move;
 
     private void Awake()

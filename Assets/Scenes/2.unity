@@ -2175,6 +2175,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 5
+  player: {fileID: 4573928483762793073}
   iFramesDuration: 0
   numberOfFlashes: 0
 --- !u!114 &1374780394
@@ -2572,6 +2573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 3
+  player: {fileID: 4573928483762793073}
   iFramesDuration: 0
   numberOfFlashes: 0
 --- !u!114 &1575547560
@@ -4305,6 +4307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 5
+  player: {fileID: 0}
   iFramesDuration: 0
   numberOfFlashes: 0
 --- !u!1001 &2126850566
@@ -4714,6 +4717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 3
+  player: {fileID: 0}
   iFramesDuration: 0
   numberOfFlashes: 0
 --- !u!114 &1296809543989874119
@@ -5220,6 +5224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 5
+  player: {fileID: 4573928483762793073}
   iFramesDuration: 0
   numberOfFlashes: 0
 --- !u!61 &4625672036743408097

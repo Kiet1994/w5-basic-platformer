@@ -9,7 +9,7 @@ public class HealthEnemy : MonoBehaviour
     public float currentHealth { get; private set; }
     private Animator anim;
     private bool dead;
-
+    [SerializeField] private Transform player;
 
     [Header("iFrames")] //?
     [SerializeField] private float iFramesDuration; // th?i gian b?t t?
@@ -21,10 +21,13 @@ public class HealthEnemy : MonoBehaviour
         currentHealth = startingHealth;
         anim = GetComponent<Animator>();
         spriteRend = GetComponent<SpriteRenderer>(); //?
+        
 
     }
     public void TakeDamage(float _damage) // Nh?n  sát th??ng
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;// xoay enemy
+        this.transform.localScale = new Vector3(player.transform.localScale.x, transform.localScale.y, transform.localScale.z);
         currentHealth = Mathf.Clamp(currentHealth - _damage, 0, startingHealth); // 
         Debug.Log(currentHealth);
         if (currentHealth > 0)
